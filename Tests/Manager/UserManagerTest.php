@@ -13,37 +13,72 @@ declare(strict_types=1);
 
 namespace Tests\Omed\Component\User\Manager;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Omed\Component\Core\Test\TestCase;
 use Omed\Component\Core\Test\TestDatabaseTrait;
 use Omed\Component\User\Manager\UserManager;
 use Omed\Component\User\Model\User;
+use Omed\Component\User\Tests\TestUser;
 use Omed\Component\User\UserComponent;
+use Omed\Component\User\Util\CanonicalFieldsUpdater;
+use Omed\Component\User\Util\PasswordUpdaterInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class UserManagerTest extends TestCase
 {
     use TestDatabaseTrait;
 
+    /**
+     * @var UserManager
+     */
+    private $userManager;
+
+    /**
+     * @var MockObject
+     */
+    private $om;
+
+    /**
+     * @var MockObject
+     */
+    private $repository;
+
+    /**
+     * @var MockObject
+     */
+    private $passwordUpdater;
+
+    /**
+     * @var MockObject
+     */
+    private $canonicalFieldsUpdater;
+
     protected function setUp(): void
     {
         $this->addEntityPath(UserComponent::getModelPath());
-    }
+        $passwordUpdater = $this->getMockBuilder(PasswordUpdaterInterface::class)->getMock();
+        $canonicalFieldsUpdater = $this->getMockBuilder(CanonicalFieldsUpdater::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
-    public function getUserManager()
-    {
-        return new UserManager($this->getEntityManager(), User::class);
-    }
+        $this->repository = $this->createMock(ObjectRepository::class);
 
-    public function testGetRepository()
-    {
-        $manager = new UserManager($this->getEntityManager(), User::class);
+        $this->om = $this->createMock(ObjectManager::class);
+        $this->om->expects($this->any())
+            ->method('getRepository')
+            ->with($this->equalTo(TestUser::class))
+            ->will($this->returnValue($this->repository));
 
-        $this->assertInstanceOf(ObjectRepository::class, $manager->getRepository());
+        $this->passwordUpdater = $passwordUpdater;
+        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
+        $this->userManager = new UserManager($passwordUpdater, $canonicalFieldsUpdater, $this->om, TestUser::class);
     }
 
     public function testCreate()
     {
-        $manager = new UserManager($this->getEntityManager(), User::class);
+        $manager = $this->userManager;
+        $om = $this->om;
 
         $user = $manager->createUser();
         $user->setUsername('test')
@@ -51,9 +86,35 @@ class UserManagerTest extends TestCase
             ->setPlainPassword('password')
             ->setPassword('password');
 
+        $om->expects($this->once())
+            ->method('persist')
+            ->with($user);
+        $om->expects($this->once())
+            ->method('flush');
         $manager->storeUser($user);
         $this->assertInstanceOf(User::class, $user);
-        $this->assertNotNull($user->getId());
+    }
+
+    public function testStoreUser()
+    {
+        $manager = $this->userManager;
+        $passwordUpdater = $this->passwordUpdater;
+        $canonicalUpdater = $this->canonicalFieldsUpdater;
+
+        $user = new TestUser();
+        $user
+            ->setUsername("test")
+            ->setEmail("test@test.com")
+        ;
+
+        $canonicalUpdater->expects($this->once())
+            ->method('updateCanonicalFields')
+            ->with($user);
+        $passwordUpdater->expects($this->once())
+            ->method('hashPassword')
+            ->with($user);
+
+        $manager->storeUser($user);
     }
 
     /**
@@ -61,20 +122,18 @@ class UserManagerTest extends TestCase
      */
     public function testFindUserBy()
     {
-        $manager = new UserManager($this->getEntityManager(), User::class);
-        $user = $manager->createUser();
-        $user->setUsername('test')
-            ->setEmail('test@test.com')
-            ->setPlainPassword('password')
-            ->setPassword('password');
-        $manager->storeUser($user);
+        $manager = $this->userManager;
+        $repository = $this->repository;
 
-        $user = $manager->findUserBy(['email' => 'test@test.com']);
+        $user = new TestUser();
+        $criteria = ['email' => 'test@test.com'];
+        $repository->expects($this->once())
+            ->method('findOneBy')
+            ->with($criteria)
+            ->will($this->returnValue($user));
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertEquals('test', $user->getUsername());
-        $this->assertEquals('test@test.com', $user->getEmail());
-        $this->assertEquals('password', $user->getPassword());
-        $this->assertEquals('password', $user->getPlainPassword());
+        $found = $manager->findUserBy($criteria);
+
+        $this->assertSame($user, $found);
     }
 }

@@ -15,6 +15,8 @@ namespace Omed\Component\User\Manager;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Omed\Component\User\Model\UserInterface;
+use Omed\Component\User\Util\CanonicalFieldsUpdater;
+use Omed\Component\User\Util\PasswordUpdaterInterface;
 
 class UserManager
 {
@@ -29,12 +31,29 @@ class UserManager
     private $class;
 
     /**
-     * UserManager constructor.
+     * @var CanonicalFieldsUpdater
      */
-    public function __construct(ObjectManager $om, string $class)
+    private $canonicalFieldsUpdater;
+
+    /**
+     * @var PasswordUpdaterInterface
+     */
+    private $passwordUpdater;
+
+    /**
+     * UserManager constructor.
+     *
+     * @param PasswordUpdaterInterface $passwordUpdater
+     * @param CanonicalFieldsUpdater $canonicalFieldsUpdater
+     * @param ObjectManager $om
+     * @param string $class
+     */
+    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, string $class)
     {
         $this->class = $class;
         $this->om = $om;
+        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
+        $this->passwordUpdater = $passwordUpdater;
     }
 
     /**
@@ -46,7 +65,15 @@ class UserManager
     }
 
     /**
-     * @return \Doctrine\Common\Persistence\ObjectRepository
+     * @param UserInterface $user
+     */
+    public function updateCanonicalFields(UserInterface $user)
+    {
+        $this->canonicalFieldsUpdater->updateCanonicalFields($user);
+    }
+
+    /**
+     * @return \Doctrine\Persistence\ObjectRepository
      */
     public function getRepository()
     {
@@ -55,6 +82,8 @@ class UserManager
 
     public function storeUser(UserInterface $user, $andFlush = true)
     {
+        $this->updateCanonicalFields($user);
+        $this->updatePassword($user);
         $om = $this->om;
         $om->persist($user);
 
@@ -64,9 +93,18 @@ class UserManager
     }
 
     /**
-     * @return UserInterface
+     * @param UserInterface $user
      */
-    public function findUserBy(array $criteria)
+    public function updatePassword(UserInterface $user)
+    {
+        $this->passwordUpdater->hashPassword($user);
+    }
+
+    /**
+     * @param array $criteria
+     * @return UserInterface|object
+     */
+    public function findUserBy(array $criteria): ?UserInterface
     {
         return $this->getRepository()->findOneBy($criteria);
     }

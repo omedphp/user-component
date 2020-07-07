@@ -44,9 +44,9 @@ class UserManager
      * UserManager constructor.
      *
      * @param PasswordUpdaterInterface $passwordUpdater
-     * @param CanonicalFieldsUpdater $canonicalFieldsUpdater
-     * @param ObjectManager $om
-     * @param string $class
+     * @param CanonicalFieldsUpdater   $canonicalFieldsUpdater
+     * @param ObjectManager            $om
+     * @param string                   $class
      */
     public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, string $class)
     {
@@ -102,6 +102,7 @@ class UserManager
 
     /**
      * @param array $criteria
+     *
      * @return UserInterface|object
      */
     public function findUserBy(array $criteria): ?UserInterface

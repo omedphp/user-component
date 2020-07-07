@@ -1,22 +1,22 @@
 <?php
 
-declare(strict_types=1);
-
 /*
- * This file is part of the Omed Project.
+ * This file is part of the API Platform project.
  *
- * (c) Anthonius Munthi <me@itstoni.com>
+ * (c) Anthonius Munthi <https://itstoni.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Omed\Component\User\Util;
 
-use Omed\Component\User\Util\CanonicalFieldsUpdater;
 use Omed\Component\Core\Test\TestCase;
-use Omed\Component\User\Util\CanonicalizerInterface;
 use Omed\Component\User\Tests\TestUser;
+use Omed\Component\User\Util\CanonicalFieldsUpdater;
+use Omed\Component\User\Util\CanonicalizerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class CanonicalFieldsUpdaterTest extends TestCase
@@ -44,7 +44,6 @@ class CanonicalFieldsUpdaterTest extends TestCase
         $this->updater = new CanonicalFieldsUpdater($this->usernameCanonicalizer, $this->emailCanonicalizer);
     }
 
-
     public function testCanonicalizeEmail()
     {
         $user = new TestUser();
@@ -61,18 +60,16 @@ class CanonicalFieldsUpdaterTest extends TestCase
             ->expects($this->once())
             ->method('canonicalize')
             ->with('Test')
-            ->will($this->returnCallback('strtolower'));
-        ;
+            ->willReturnCallback('strtolower');
 
         $this->emailCanonicalizer
             ->expects($this->once())
             ->method('canonicalize')
             ->with('Test@Test.com')
-            ->will($this->returnCallback('strtolower'));
+            ->willReturnCallback('strtolower');
 
         $this->updater->updateCanonicalFields($user);
-        $this->assertSame('test',$user->getUsernameCanonical());
+        $this->assertSame('test', $user->getUsernameCanonical());
         $this->assertSame('test@test.com', $user->getEmailCanonical());
     }
-
 }

@@ -34,14 +34,15 @@ interface UserInterface
 
     /**
      * @param string|null $usernameCanonical
+     *
      * @return UserInterface
      */
     public function setUsernameCanonical(?string $usernameCanonical): self;
 
-
     public function setEmail(string $email): self;
 
     public function getEmail(): ?string;
+
     /**
      * @return string|null
      */
@@ -49,9 +50,10 @@ interface UserInterface
 
     /**
      * @param string|null $emailCanonical
+     *
      * @return UserInterface
      */
-    public function setEmailCanonical(?string $emailCanonical): UserInterface;
+    public function setEmailCanonical(?string $emailCanonical): self;
 
     public function getSalt(): ?string;
 

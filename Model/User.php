@@ -28,7 +28,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      *
-     * @var null|int
+     * @var int|null
      */
     protected $id;
 
@@ -40,7 +40,8 @@ class User implements UserInterface
     protected $username;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
+     *
      * @var string|null
      */
     protected $usernameCanonical;
@@ -60,7 +61,8 @@ class User implements UserInterface
     protected $email;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string", nullable=true)
+     *
      * @var string|null
      */
     protected $emailCanonical;
@@ -138,6 +140,7 @@ class User implements UserInterface
 
     /**
      * @param string|null $username
+     *
      * @return UserInterface
      */
     public function setUsername(?string $username): UserInterface
@@ -157,11 +160,13 @@ class User implements UserInterface
 
     /**
      * @param string|null $usernameCanonical
+     *
      * @return UserInterface
      */
     public function setUsernameCanonical(?string $usernameCanonical): UserInterface
     {
         $this->usernameCanonical = $usernameCanonical;
+
         return $this;
     }
 
@@ -175,11 +180,13 @@ class User implements UserInterface
 
     /**
      * @param string|null $emailCanonical
+     *
      * @return UserInterface
      */
     public function setEmailCanonical(?string $emailCanonical): UserInterface
     {
         $this->emailCanonical = $emailCanonical;
+
         return $this;
     }
 
@@ -190,6 +197,7 @@ class User implements UserInterface
 
     /**
      * @param string|null $salt
+     *
      * @return UserInterface
      */
     public function setSalt(?string $salt): UserInterface

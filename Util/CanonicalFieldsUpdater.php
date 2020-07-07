@@ -1,15 +1,17 @@
 <?php
+
 /*
- * This file is part of the Omed Project.
+ * This file is part of the API Platform project.
  *
- * (c) Anthonius Munthi <me@itstoni.com>
+ * (c) Anthonius Munthi <https://itstoni.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Omed\Component\User\Util;
+declare(strict_types=1);
 
+namespace Omed\Component\User\Util;
 
 use Omed\Component\User\Model\UserInterface;
 
@@ -39,27 +41,29 @@ class CanonicalFieldsUpdater
 
     /**
      * @param string|null $username
+     *
      * @return string|null
      */
     public function canonicalizeUsername(?string $username): ?string
     {
-        if(!is_null($username)){
+        if (null !== $username) {
             return $this->usernameCanonicalizer->canonicalize($username);
         }
+
         return null;
     }
 
     /**
      * @param string|null $email
+     *
      * @return string|null
      */
     public function canonicalizeEmail(?string $email): ?string
     {
-        if(!is_null($email)){
+        if (null !== $email) {
             return $this->emailCanonicalizer->canonicalize($email);
         }
+
         return null;
     }
-
-
 }

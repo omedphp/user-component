@@ -68,7 +68,7 @@ class UserManagerTest extends TestCase
         $this->om->expects($this->any())
             ->method('getRepository')
             ->with($this->equalTo(TestUser::class))
-            ->will($this->returnValue($this->repository));
+            ->willReturn($this->repository);
 
         $this->passwordUpdater = $passwordUpdater;
         $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
@@ -103,9 +103,8 @@ class UserManagerTest extends TestCase
 
         $user = new TestUser();
         $user
-            ->setUsername("test")
-            ->setEmail("test@test.com")
-        ;
+            ->setUsername('test')
+            ->setEmail('test@test.com');
 
         $canonicalUpdater->expects($this->once())
             ->method('updateCanonicalFields')
@@ -130,7 +129,7 @@ class UserManagerTest extends TestCase
         $repository->expects($this->once())
             ->method('findOneBy')
             ->with($criteria)
-            ->will($this->returnValue($user));
+            ->willReturn($user);
 
         $found = $manager->findUserBy($criteria);
 

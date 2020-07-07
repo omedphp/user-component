@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of the Omed project.
  *
  * (c) Anthonius Munthi <https://itstoni.com>
  *

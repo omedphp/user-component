@@ -18,9 +18,9 @@ class Canonicalizer implements CanonicalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function canonicalize($string): ?string
+    public function canonicalize(string $string): ?string
     {
-        if (null === $string || '' == $string) {
+        if ('' == $string) {
             return null;
         }
 

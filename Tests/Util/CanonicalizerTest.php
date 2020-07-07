@@ -21,8 +21,6 @@ class CanonicalizerTest extends TestCase
     public function testCanonicalize()
     {
         $canonicalizer = new Canonicalizer();
-        $string = null;
-        $this->assertNull($canonicalizer->canonicalize($string));
         $this->assertNull($canonicalizer->canonicalize(''));
         $this->assertSame('foo', $canonicalizer->canonicalize('FOO'));
     }

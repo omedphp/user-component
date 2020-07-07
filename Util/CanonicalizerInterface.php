@@ -20,7 +20,7 @@ interface CanonicalizerInterface
      *
      * @param string $string
      *
-     * @return string|null
+     * @return string
      */
-    public function canonicalize($string): ?string;
+    public function canonicalize(string $string): ?string;
 }

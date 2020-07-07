@@ -28,7 +28,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      *
-     * @var string
+     * @var null|int
      */
     protected $id;
 

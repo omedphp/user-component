@@ -27,9 +27,31 @@ interface UserInterface
 
     public function setUsername(string $username): self;
 
+    /**
+     * @return string|null
+     */
+    public function getUsernameCanonical(): ?string;
+
+    /**
+     * @param string|null $usernameCanonical
+     * @return UserInterface
+     */
+    public function setUsernameCanonical(?string $usernameCanonical): self;
+
+
     public function setEmail(string $email): self;
 
     public function getEmail(): ?string;
+    /**
+     * @return string|null
+     */
+    public function getEmailCanonical(): ?string;
+
+    /**
+     * @param string|null $emailCanonical
+     * @return UserInterface
+     */
+    public function setEmailCanonical(?string $emailCanonical): UserInterface;
 
     public function getSalt(): ?string;
 

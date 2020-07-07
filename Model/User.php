@@ -40,6 +40,12 @@ class User implements UserInterface
     protected $username;
 
     /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string|null
+     */
+    protected $usernameCanonical;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      *
      * @var string|null
@@ -52,6 +58,12 @@ class User implements UserInterface
      * @var string|null
      */
     protected $email;
+
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string|null
+     */
+    protected $emailCanonical;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -125,12 +137,49 @@ class User implements UserInterface
     }
 
     /**
-     * @return User
+     * @param string|null $username
+     * @return UserInterface
      */
     public function setUsername(?string $username): UserInterface
     {
         $this->username = $username;
 
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUsernameCanonical(): ?string
+    {
+        return $this->usernameCanonical;
+    }
+
+    /**
+     * @param string|null $usernameCanonical
+     * @return UserInterface
+     */
+    public function setUsernameCanonical(?string $usernameCanonical): UserInterface
+    {
+        $this->usernameCanonical = $usernameCanonical;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEmailCanonical(): ?string
+    {
+        return $this->emailCanonical;
+    }
+
+    /**
+     * @param string|null $emailCanonical
+     * @return UserInterface
+     */
+    public function setEmailCanonical(?string $emailCanonical): UserInterface
+    {
+        $this->emailCanonical = $emailCanonical;
         return $this;
     }
 
@@ -140,7 +189,8 @@ class User implements UserInterface
     }
 
     /**
-     * @return User
+     * @param string|null $salt
+     * @return UserInterface
      */
     public function setSalt(?string $salt): UserInterface
     {

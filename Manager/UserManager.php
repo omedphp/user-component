@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Omed\Component\User\Manager;
 
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use Omed\Component\User\Model\UserInterface;
 
 class UserManager
@@ -45,6 +45,9 @@ class UserManager
         return new $this->class();
     }
 
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectRepository
+     */
     public function getRepository()
     {
         return $this->om->getRepository($this->class);

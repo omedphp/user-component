@@ -13,63 +13,42 @@ declare(strict_types=1);
 
 namespace Omed\Component\User\Model;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Class User.
- *
- * @ORM\Entity
- * @ORM\Table(name="omed_users")
  */
-class User implements UserInterface
+abstract class User implements UserInterface
 {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     *
+    /***
      * @var int|null
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
-     *
      * @var string|null
      */
     protected $username;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
      * @var string|null
      */
     protected $usernameCanonical;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
      * @var string|null
      */
     protected $salt;
 
     /**
-     * @ORM\Column(type="string")
-     *
      * @var string|null
      */
     protected $email;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
      * @var string|null
      */
     protected $emailCanonical;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
      * @var string|null
      */
     protected $password;
@@ -80,8 +59,6 @@ class User implements UserInterface
     protected $plainPassword;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
      * @var \DateTimeInterface|null
      */
     protected $lastLogin;

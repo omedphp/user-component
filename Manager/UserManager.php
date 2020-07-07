@@ -103,9 +103,9 @@ class UserManager
     /**
      * @param array $criteria
      *
-     * @return UserInterface|object
+     * @return object|UserInterface|null
      */
-    public function findUserBy(array $criteria): ?UserInterface
+    public function findUserBy(array $criteria)
     {
         return $this->getRepository()->findOneBy($criteria);
     }

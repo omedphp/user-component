@@ -205,15 +205,17 @@ abstract class User implements UserInterface
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
 
     /**
-     * @return User
+     * @param string $password
+     *
+     * @return $this|UserInterface
      */
-    public function setPassword(?string $password): UserInterface
+    public function setPassword($password)
     {
         $this->password = $password;
 

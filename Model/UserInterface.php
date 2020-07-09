@@ -67,9 +67,17 @@ interface UserInterface
 
     public function setSalt(?string $salt): self;
 
-    public function getPassword(): ?string;
+    /**
+     * @return string|null
+     */
+    public function getPassword();
 
-    public function setPassword(?string $password): self;
+    /**
+     * @param string $password
+     *
+     * @return UserInterface
+     */
+    public function setPassword($password);
 
     public function getPlainPassword(): ?string;
 

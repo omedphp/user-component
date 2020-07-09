@@ -110,4 +110,12 @@ class UserManager
     {
         return $this->getRepository()->findOneBy($criteria);
     }
+
+    /**
+     * @return PasswordUpdaterInterface
+     */
+    public function getPasswordUpdater()
+    {
+        return $this->passwordUpdater;
+    }
 }

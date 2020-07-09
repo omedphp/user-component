@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Omed\Component\User\Util;
 
 use Omed\Component\User\Model\UserInterface;
-use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\SelfSaltingEncoderInterface;
 
@@ -23,11 +22,19 @@ class PasswordUpdater implements PasswordUpdaterInterface
     /**
      * @var EncoderFactoryInterface
      */
-    private $encoderFactory;
+    protected $encoderFactory;
 
     public function __construct(EncoderFactoryInterface $encoderFactory)
     {
         $this->encoderFactory = $encoderFactory;
+    }
+
+    public function hash($value, array $options = [])
+    {
+        $salt = $options['salt'] ? $options['salt'] : null;
+        $encoder = $this->encoderFactory->getEncoder('user');
+
+        return $encoder->encodePassword($value, $salt);
     }
 
     /**
@@ -52,7 +59,8 @@ class PasswordUpdater implements PasswordUpdaterInterface
             $user->setSalt($salt);
         }
 
-        $hashedPassword = $encoder->encodePassword($plainPassword, $user->getSalt());
+        $options = ['salt' => $user->getSalt()];
+        $hashedPassword = $this->hash($plainPassword, $options);
         $user->setPassword($hashedPassword);
         $user->eraseCredentials();
     }

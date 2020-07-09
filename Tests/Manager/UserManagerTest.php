@@ -20,7 +20,6 @@ use Omed\Component\Core\Test\TestDatabaseTrait;
 use Omed\Component\User\Manager\UserManager;
 use Omed\Component\User\Model\User;
 use Omed\Component\User\Tests\TestUser;
-use Omed\Component\User\UserComponent;
 use Omed\Component\User\Util\CanonicalFieldsUpdater;
 use Omed\Component\User\Util\PasswordUpdaterInterface;
 use PHPUnit\Framework\MockObject\MockObject;

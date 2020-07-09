@@ -18,7 +18,7 @@ namespace Omed\Component\User\Model;
  */
 abstract class User implements UserInterface
 {
-    /***
+    /**
      * @var int|null
      */
     protected $id;

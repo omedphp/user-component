@@ -57,7 +57,7 @@ class PasswordUpdaterTest extends TestCase
 
         $factory->expects($this->once())
             ->method('getEncoder')
-            ->with($user)
+            ->with('user')
             ->willReturn($encoder);
 
         $encoder->expects($this->once())

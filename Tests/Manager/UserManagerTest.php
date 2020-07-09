@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Tests\Omed\Component\User\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectRepository;
 use Omed\Component\Core\Test\TestCase;
 use Omed\Component\Core\Test\TestDatabaseTrait;
 use Omed\Component\User\Manager\UserManager;

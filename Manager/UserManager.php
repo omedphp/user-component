@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Omed\Component\User\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectRepository;
 use Omed\Component\User\Model\UserInterface;
 use Omed\Component\User\Util\CanonicalFieldsUpdater;
 use Omed\Component\User\Util\PasswordUpdaterInterface;

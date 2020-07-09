@@ -24,6 +24,11 @@ abstract class User implements UserInterface
     protected $id;
 
     /**
+     * @var bool
+     */
+    protected $enabled = true;
+
+    /**
      * @var string|null
      */
     protected $username;
@@ -64,46 +69,47 @@ abstract class User implements UserInterface
     protected $lastLogin;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
      * @var string|null
      */
     protected $emailVerificationToken;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     *
      * @var string|null
      */
     protected $passwordResetToken;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
      * @var \DateTimeInterface|null
      */
     protected $passwordRequestedAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
      * @var \DateTimeInterface|null
      */
     protected $emailVerifiedAt;
 
     /**
-     * @ORM\Column(type="boolean")
-     *
      * @var bool
      */
     protected $locked = false;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
      * @var \DateTimeInterface|null
      */
     protected $credentialsExpireAt;
+
+    /**
+     * @var array
+     */
+    protected $roles = [];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
+    }
 
     public function getId(): ?int
     {

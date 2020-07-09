@@ -19,6 +19,14 @@ namespace Omed\Component\User\Model;
 interface UserInterface
 {
     /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials();
+
+    /**
      * Get current user id.
      */
     public function getId(): ?int;

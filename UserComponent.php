@@ -15,6 +15,11 @@ namespace Omed\Component\User;
 
 class UserComponent
 {
+    public static function getDoctrineXMLSchemaPath()
+    {
+        return __DIR__.'/Resources/doctrine';
+    }
+
     public static function getModelPath()
     {
         return __DIR__.'/Model';

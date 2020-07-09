@@ -56,7 +56,6 @@ class UserManagerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->addEntityPath(UserComponent::getModelPath());
         $passwordUpdater = $this->getMockBuilder(PasswordUpdaterInterface::class)->getMock();
         $canonicalFieldsUpdater = $this->getMockBuilder(CanonicalFieldsUpdater::class)
             ->disableOriginalConstructor()

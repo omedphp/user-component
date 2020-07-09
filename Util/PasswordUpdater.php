@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Omed\Component\User\Util;
 
 use Omed\Component\User\Model\UserInterface;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\SelfSaltingEncoderInterface;
 
 class PasswordUpdater implements PasswordUpdaterInterface
@@ -45,7 +45,7 @@ class PasswordUpdater implements PasswordUpdaterInterface
 
         $encoder = $this->encoderFactory->getEncoder('user');
 
-        if ($encoder instanceof NativePasswordEncoder || $encoder instanceof SelfSaltingEncoderInterface) {
+        if ($encoder instanceof BCryptPasswordEncoder || $encoder instanceof SelfSaltingEncoderInterface) {
             $user->setSalt(null);
         } else {
             $salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');

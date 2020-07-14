@@ -15,21 +15,22 @@ namespace Tests\Omed\Component\User\Manager;
 
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
-use Omed\Component\Core\Test\TestCase;
-use Omed\Component\Core\Test\TestDatabaseTrait;
+use Omed\Component\Core\Testing\TestDatabaseTrait;
 use Omed\Component\User\Manager\UserManager;
+use Omed\Component\User\Manager\UserManagerInterface;
 use Omed\Component\User\Model\User;
 use Omed\Component\User\Tests\TestUser;
 use Omed\Component\User\Util\CanonicalFieldsUpdater;
 use Omed\Component\User\Util\PasswordUpdaterInterface;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class UserManagerTest extends TestCase
 {
     use TestDatabaseTrait;
 
     /**
-     * @var UserManager
+     * @var UserManagerInterface
      */
     private $userManager;
 
@@ -96,20 +97,27 @@ class UserManagerTest extends TestCase
     public function testStoreUser()
     {
         $manager = $this->userManager;
-        $passwordUpdater = $this->passwordUpdater;
-        $canonicalUpdater = $this->canonicalFieldsUpdater;
+        $om = $this->om;
 
         $user = new TestUser();
         $user
             ->setUsername('test')
             ->setEmail('test@test.com');
 
-        $canonicalUpdater->expects($this->once())
+        /*$canonicalUpdater->expects($this->once())
             ->method('updateCanonicalFields')
             ->with($user);
         $passwordUpdater->expects($this->once())
             ->method('hashPassword')
             ->with($user);
+        */
+
+        $om->expects($this->once())
+            ->method('persist')
+            ->with($user);
+
+        $om->expects($this->once())
+            ->method('flush');
 
         $manager->storeUser($user);
     }

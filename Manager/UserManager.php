@@ -19,7 +19,7 @@ use Omed\Component\User\Model\UserInterface;
 use Omed\Component\User\Util\CanonicalFieldsUpdater;
 use Omed\Component\User\Util\PasswordUpdaterInterface;
 
-class UserManager
+class UserManager implements UserManagerInterface
 {
     /**
      * @var ObjectManager
@@ -83,8 +83,6 @@ class UserManager
 
     public function storeUser(UserInterface $user, $andFlush = true)
     {
-        $this->updateCanonicalFields($user);
-        $this->updatePassword($user);
         $om = $this->om;
         $om->persist($user);
 
@@ -99,6 +97,16 @@ class UserManager
     public function updatePassword(UserInterface $user)
     {
         $this->passwordUpdater->hashPassword($user);
+    }
+
+    /**
+     * @param string $username
+     *
+     * @return object|UserInterface|null
+     */
+    public function findByUsername(string $username)
+    {
+        return $this->findUserBy(['username' => $username]);
     }
 
     /**

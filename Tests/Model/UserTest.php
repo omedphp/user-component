@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Omed\Component\User\Model;
 
-use Omed\Component\Core\Test\TestCase;
+use Omed\Component\Core\Testing\TestCase;
 
 class UserTest extends TestCase
 {

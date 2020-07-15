@@ -3,11 +3,11 @@
          backupStaticAttributes="false"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="./vendor/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
+         convertWarningsToExceptions="false"
          failOnRisky="true"
          failOnWarning="true"
          processIsolation="false"
@@ -19,7 +19,7 @@
         <env name="JWT_SECRET" value="helloworld"/>
     </php>
     <testsuites>
-        <testsuite name="Omed User Test Suite">
+        <testsuite name="Omed User Component Test Suite">
             <directory suffix="Test.php">./Tests</directory>
         </testsuite>
     </testsuites>
@@ -27,10 +27,9 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
             <exclude>
-                <directory>./src/*/*/Testing</directory>
-                <directory>./src/*/*/Spec</directory>
-                <directory>./src/*/*/Tests</directory>
-                <directory>./src/*/*/Resources</directory>
+                <directory>Testing</directory>
+                <directory>Tests</directory>
+                <directory>Resources</directory>
             </exclude>
         </whitelist>
     </filter>

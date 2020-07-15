@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Omed\Component\User\Model;
+namespace Omed\Component\User\Tests\Model;
 
 use Omed\Component\User\Model\UserInterface;
 use Omed\Component\User\Tests\TestUser;

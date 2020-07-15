@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Omed\Component\User\Util;
+namespace Omed\Component\User\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
 use Omed\Component\User\Util\Canonicalizer;

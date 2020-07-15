@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Omed\Component\User\Util;
+namespace Omed\Component\User\Tests\Util;
 
 use Omed\Component\User\Model\UserInterface;
 use Omed\Component\User\Tests\TestUser;
@@ -29,21 +29,20 @@ class PasswordUpdaterTest extends TestCase
     private $updater;
 
     /**
-     * @var MockObject
+     * @var MockObject|EncoderFactoryInterface
      */
     private $encoderFactory;
 
     /**
-     * @var MockObject
+     * @var MockObject|PasswordEncoderInterface
      */
     private $encoder;
 
     protected function setUp(): void
     {
-        $this->encoderFactory = $this->getMockBuilder(EncoderFactoryInterface::class)
-            ->getMock();
+        $this->encoderFactory = $this->createMock(EncoderFactoryInterface::class);
+        $this->encoder = $this->createMock(PasswordEncoderInterface::class);
         $this->updater = new PasswordUpdater($this->encoderFactory);
-        $this->encoder = $this->getMockBuilder(PasswordEncoderInterface::class)->getMock();
     }
 
     public function testHashPassword()

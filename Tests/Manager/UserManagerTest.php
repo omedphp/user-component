@@ -15,7 +15,7 @@ namespace Tests\Omed\Component\User\Manager;
 
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
-use Omed\Component\Core\Testing\TestDatabaseTrait;
+use Omed\Component\ORM\Testing\DatabaseTestTrait;
 use Omed\Component\User\Manager\UserManager;
 use Omed\Component\User\Manager\UserManagerInterface;
 use Omed\Component\User\Model\User;
@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserManagerTest extends TestCase
 {
-    use TestDatabaseTrait;
+    use DatabaseTestTrait;
 
     /**
      * @var UserManagerInterface

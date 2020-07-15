@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\Omed\Component\User\Util;
 
-use Omed\Component\Core\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 use Omed\Component\User\Tests\TestUser;
 use Omed\Component\User\Util\CanonicalFieldsUpdater;
 use Omed\Component\User\Util\CanonicalizerInterface;

@@ -7,7 +7,7 @@
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
-         convertWarningsToExceptions="false"
+         convertWarningsToExceptions="true"
          failOnRisky="true"
          failOnWarning="true"
          processIsolation="false"
@@ -25,11 +25,12 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./</directory>
             <exclude>
                 <directory>Testing</directory>
                 <directory>Tests</directory>
                 <directory>Resources</directory>
+                <directory>vendor</directory>
             </exclude>
         </whitelist>
     </filter>

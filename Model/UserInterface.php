@@ -18,6 +18,64 @@ namespace Omed\Component\User\Model;
  */
 interface UserInterface
 {
+    public const ROLE_DEFAULT = 'ROLE_USER';
+
+    public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+
+    /**
+     * Check if user has role.
+     *
+     * @param string $role
+     *
+     * @return bool
+     */
+    public function hasRole(string $role);
+
+    /**
+     * Sets the roles of the user.
+     *
+     * This overwrites any previous roles.
+     *
+     * @param array $roles
+     *
+     * @return static
+     */
+    public function setRoles(array $roles);
+
+    /**
+     * Adds a role to the user.
+     *
+     * @param string $role
+     *
+     * @return static
+     */
+    public function addRole(string $role);
+
+    /**
+     * Removes a role to the user.
+     *
+     * @param string $role
+     *
+     * @return static
+     */
+    public function removeRole(string $role);
+
+    /**
+     * Check if user is enabled.
+     *
+     * @return bool
+     */
+    public function isEnabled(): bool;
+
+    /**
+     * Set user enabled.
+     *
+     * @param bool $enabled
+     *
+     * @return static
+     */
+    public function setEnabled(bool $enabled);
+
     /**
      * Removes sensitive data from the user.
      *
@@ -33,7 +91,7 @@ interface UserInterface
 
     public function getUsername(): ?string;
 
-    public function setUsername(string $username): self;
+    public function setUsername(string $username);
 
     /**
      * @return string|null
@@ -43,11 +101,11 @@ interface UserInterface
     /**
      * @param string|null $usernameCanonical
      *
-     * @return UserInterface
+     * @return static
      */
-    public function setUsernameCanonical(?string $usernameCanonical): self;
+    public function setUsernameCanonical(?string $usernameCanonical);
 
-    public function setEmail(string $email): self;
+    public function setEmail(string $email);
 
     public function getEmail(): ?string;
 
@@ -59,13 +117,13 @@ interface UserInterface
     /**
      * @param string|null $emailCanonical
      *
-     * @return UserInterface
+     * @return static
      */
-    public function setEmailCanonical(?string $emailCanonical): self;
+    public function setEmailCanonical(?string $emailCanonical);
 
     public function getSalt(): ?string;
 
-    public function setSalt(?string $salt): self;
+    public function setSalt(?string $salt);
 
     /**
      * @return string|null
@@ -75,39 +133,39 @@ interface UserInterface
     /**
      * @param string $password
      *
-     * @return UserInterface
+     * @return static
      */
-    public function setPassword($password);
+    public function setPassword(string $password);
 
     public function getPlainPassword(): ?string;
 
-    public function setPlainPassword(?string $plainPassword): self;
+    public function setPlainPassword(?string $plainPassword);
 
-    public function getLastLogin(): ?\DateTimeInterface;
+    public function getLastLogin(): ?\DateTime;
 
-    public function setLastLogin(?\DateTimeInterface $lastLogin): self;
+    public function setLastLogin(?\DateTime $lastLogin);
 
     public function getEmailVerificationToken(): ?string;
 
-    public function setEmailVerificationToken(?string $emailVerificationToken): self;
+    public function setEmailVerificationToken(?string $emailVerificationToken);
 
     public function getPasswordResetToken(): ?string;
 
-    public function setPasswordResetToken(?string $passwordResetToken): self;
+    public function setPasswordResetToken(?string $passwordResetToken);
 
-    public function getPasswordRequestedAt(): ?\DateTimeInterface;
+    public function getPasswordRequestedAt(): ?\DateTime;
 
-    public function setPasswordRequestedAt(?\DateTimeInterface $passwordRequestedAt): self;
+    public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt);
 
-    public function getEmailVerifiedAt(): ?\DateTimeInterface;
+    public function getEmailVerifiedAt(): ?\DateTime;
 
-    public function setEmailVerifiedAt(?\DateTimeInterface $emailVerifiedAt): self;
+    public function setEmailVerifiedAt(?\DateTime $emailVerifiedAt);
 
     public function isLocked(): bool;
 
-    public function setLocked(bool $locked): self;
+    public function setLocked(bool $locked);
 
-    public function getCredentialsExpireAt(): ?\DateTimeInterface;
+    public function getCredentialsExpireAt(): ?\DateTime;
 
-    public function setCredentialsExpireAt(?\DateTimeInterface $credentialsExpireAt): self;
+    public function setCredentialsExpireAt(?\DateTime $credentialsExpireAt);
 }

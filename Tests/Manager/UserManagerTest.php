@@ -74,6 +74,13 @@ class UserManagerTest extends TestCase
         $this->userManager = new UserManager($passwordUpdater, $canonicalFieldsUpdater, $this->om, TestUser::class);
     }
 
+    public function testConstruct()
+    {
+        $userManager = $this->userManager;
+
+        $this->assertSame($this->passwordUpdater, $userManager->getPasswordUpdater());
+    }
+
     public function testCreate()
     {
         $manager = $this->userManager;
@@ -103,15 +110,6 @@ class UserManagerTest extends TestCase
         $user
             ->setUsername('test')
             ->setEmail('test@test.com');
-
-        /*$canonicalUpdater->expects($this->once())
-            ->method('updateCanonicalFields')
-            ->with($user);
-        $passwordUpdater->expects($this->once())
-            ->method('hashPassword')
-            ->with($user);
-        */
-
         $om->expects($this->once())
             ->method('persist')
             ->with($user);

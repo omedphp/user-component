@@ -31,7 +31,7 @@ class PasswordUpdater implements PasswordUpdaterInterface
 
     public function hash($value, array $options = [])
     {
-        $salt = $options['salt'] ? $options['salt'] : null;
+        $salt = $options['salt'] ?? null;
         $encoder = $this->encoderFactory->getEncoder('user');
 
         return $encoder->encodePassword($value, $salt);

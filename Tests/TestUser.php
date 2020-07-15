@@ -19,6 +19,14 @@ use Omed\Component\User\Model\UserInterface;
 class TestUser extends User
 {
     /**
+     * TestUser constructor.
+     */
+    public function __construct()
+    {
+        $this->addRole(static::ROLE_DEFAULT);
+    }
+
+    /**
      * @param int $id
      *
      * @return UserInterface

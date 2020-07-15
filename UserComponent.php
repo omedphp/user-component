@@ -19,9 +19,4 @@ class UserComponent
     {
         return __DIR__.'/Resources/doctrine';
     }
-
-    public static function getModelPath()
-    {
-        return __DIR__.'/Model';
-    }
 }

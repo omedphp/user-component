@@ -1,6 +1,6 @@
 {
-    "name": "omed/user-component",
-    "description": "User Component for Omed",
+    "name": "omed/laravel-security",
+    "description": "Security package for Omed",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Omed\\Component\\User\\": "./"
+            "Omed\\Component\\Security\\": "./"
         }
     },
     "require": {

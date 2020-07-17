@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Omed\Component\User\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
 use Omed\Component\User\Tests\TestUser;
 use Omed\Component\User\Util\CanonicalFieldsUpdater;
 use Omed\Component\User\Util\CanonicalizerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class CanonicalFieldsUpdaterTest extends TestCase
 {

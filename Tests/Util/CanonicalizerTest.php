@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Omed\Component\User\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
 use Omed\Component\User\Util\Canonicalizer;
+use PHPUnit\Framework\TestCase;
 
 class CanonicalizerTest extends TestCase
 {

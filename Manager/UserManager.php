@@ -100,7 +100,7 @@ class UserManager implements UserManagerInterface
     }
 
     /**
-     * @param $id
+     * @param string|int $id
      *
      * @return object|UserInterface|null
      */

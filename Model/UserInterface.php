@@ -84,11 +84,6 @@ interface UserInterface
      */
     public function eraseCredentials();
 
-    /**
-     * Get current user id.
-     */
-    public function getId(): ?int;
-
     public function getUsername(): ?string;
 
     public function setUsername(string $username);

@@ -184,7 +184,10 @@ abstract class User implements UserInterface
         return $this;
     }
 
-    public function getId(): ?int
+    /**
+     * @return int|string|null
+     */
+    public function getId()
     {
         return $this->id;
     }

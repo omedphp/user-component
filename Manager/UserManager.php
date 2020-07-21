@@ -101,6 +101,7 @@ class UserManager implements UserManagerInterface
 
     /**
      * @param $id
+     *
      * @return object|UserInterface|null
      */
     public function findById($id)
